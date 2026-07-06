@@ -1,18 +1,73 @@
+"use client"
 import { Testimonial } from "@/lib/data"
-import React from "react"
+import { gsap, useGSAP } from "@/lib/gsap"
+import React, { useRef } from "react"
 
 export default function TestimonialCard({
   testimonial,
 }: {
   testimonial: Testimonial
 }) {
-  return (
-    <div className="min-[40vh]: flex flex-col justify-between rounded-2xl border border-black/15 p-5 shadow-md lg:min-h-[40vh] lg:p-10">
-      <p className="text-lg lg:text-2xl">{testimonial.quote}</p>
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const tl = useRef<GSAPTimeline>(null)
 
-      <div>
-        <h3 className="text-lg lg:text-2xl">{testimonial.name}</h3>
-        <span className="text-lg text-black/50">{testimonial.title}</span>
+  useGSAP(() => {
+    tl.current = gsap.timeline({
+      paused: true,
+    })
+
+    tl.current.to(cardRef.current, {
+      rotateX: 180,
+      //   z: 50,
+      duration: 0.7,
+      ease: "power3.inOut",
+    })
+  }, [])
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="perspective-[1000px]"
+      onMouseEnter={() => tl.current?.play()}
+      onMouseLeave={() => tl.current?.reverse()}
+    >
+      <div
+        ref={cardRef}
+        className="relative min-h-[25vh] lg:min-h-[38vh]"
+        style={{
+          transformStyle: "preserve-3d",
+        }}
+        // className="flex min-h-[25vh] flex-col justify-between rounded-2xl border border-black/15 p-5 shadow-md perspective-[1000px] lg:min-h-[38vh] lg:p-10"
+      >
+        {/* Front */}
+        <div
+          className="absolute inset-0 flex items-center justify-center rounded-2xl border border-black/15 bg-gray-50"
+          style={{
+            backfaceVisibility: "hidden",
+          }}
+        />
+
+        {/* Back */}
+        <div
+          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-black/15 bg-white p-5 shadow-md lg:p-10"
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "rotateX(180deg)",
+          }}
+        >
+          <p className="text-sm lg:text-2xl">{testimonial.quote}</p>
+
+          <div>
+            <h3 className="text-sm font-medium lg:text-2xl">
+              {testimonial.name}
+            </h3>
+
+            <span className="text-xs text-black/50 lg:text-lg">
+              {testimonial.title}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   )

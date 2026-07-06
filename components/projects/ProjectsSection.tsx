@@ -3,8 +3,8 @@ import ProjectsGridView from "./ProjectsGridView"
 
 export default function ProjectsSection() {
   return (
-    <div className="border border-white">
+    <section id="projects" className="mt-20 border border-white">
       <ProjectsGridView />
-    </div>
+    </section>
   )
 }

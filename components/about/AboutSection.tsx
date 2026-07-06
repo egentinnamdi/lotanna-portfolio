@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { useGSAP } from "@gsap/react"
 import Image from "next/image"
 import { gsap } from "@/lib/gsap"
+import { useRouter } from "next/navigation"
 
 const images = [
   "/one.jpeg",
@@ -20,6 +21,7 @@ const images = [
 
 export default function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useGSAP(
     () => {
@@ -81,7 +83,8 @@ export default function AboutSection() {
     { scope: containerRef }
   )
   return (
-    <div
+    <section
+      id="about"
       ref={containerRef}
       className="relative grid h-screen place-items-center self-stretch overflow-hidden bg-olive-50"
     >
@@ -101,7 +104,10 @@ export default function AboutSection() {
         />
       ))}
 
-      <Button className="absolute bottom-10 left-1/2 flex h-12 -translate-x-1/2 items-center justify-between rounded-full p-1.5 lg:h-16 lg:w-64">
+      <Button
+        onClick={() => router.push("#contact")}
+        className="absolute bottom-10 left-1/2 flex h-12 -translate-x-1/2 items-center justify-between rounded-full p-1.5 lg:h-16 lg:w-64"
+      >
         <Avatar className="size-10 lg:size-12">
           <AvatarImage src="/profile.png" className="size-full object-cover" />
           <AvatarFallback>CN</AvatarFallback>
@@ -111,6 +117,6 @@ export default function AboutSection() {
           <Mail />
         </div>
       </Button>
-    </div>
+    </section>
   )
 }
