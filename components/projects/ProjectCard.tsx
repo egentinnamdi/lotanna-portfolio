@@ -7,8 +7,8 @@ import { ArrowUpRight } from "lucide-react"
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="flex min-h-[60vh] flex-col gap-5">
-      <div className="h-96 rounded-2xl bg-gray-100 py-3">
+    <div className="flex flex-col gap-5 lg:min-h-[60vh]">
+      <div className="h-64 rounded-2xl bg-gray-100 py-3 lg:h-96">
         <Image
           src={project.imageUrl}
           alt={project.title}
@@ -21,7 +21,9 @@ export default function ProjectCard({ project }: { project: Project }) {
         <h2 className="text-2xl font-medium">{project.title}</h2>
         <span className="text-xl text-gray-400">{project.year}</span>
       </div>
-      <p className="text-xl leading-normal text-black/80">{project.excerpt}</p>
+      <p className="text-lg leading-normal text-black/80 lg:text-xl">
+        {project.excerpt}
+      </p>
 
       <Button variant="link" className="self-start">
         <a target="_blank" href={project.liveUrl}>

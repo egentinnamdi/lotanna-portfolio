@@ -85,7 +85,9 @@ export default function AboutSection() {
       ref={containerRef}
       className="relative grid h-screen place-items-center self-stretch overflow-hidden bg-olive-50"
     >
-      <h2 className="text-8xl font-light">From concept</h2>
+      <h2 className="text-center text-6xl font-light lg:text-8xl">
+        From concept
+      </h2>
       <h2 className="hidden text-8xl font-light">to craft</h2>
 
       {images.map((img, index) => (
@@ -99,16 +101,13 @@ export default function AboutSection() {
         />
       ))}
 
-      <Button className="absolute bottom-10 left-1/2 flex h-16 w-64 -translate-x-1/2 items-center justify-between rounded-full p-1.5">
-        <Avatar className="size-12">
-          <AvatarImage
-            src="/profile.png"
-            className="h-full w-full object-cover"
-          />
+      <Button className="absolute bottom-10 left-1/2 flex h-12 -translate-x-1/2 items-center justify-between rounded-full p-1.5 lg:h-16 lg:w-64">
+        <Avatar className="size-10 lg:size-12">
+          <AvatarImage src="/profile.png" className="size-full object-cover" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <span className="text-base">Book a chat</span>
-        <div className="grid size-12 place-items-center rounded-full bg-white text-black">
+        <span className="text-sm lg:text-base">Book a chat</span>
+        <div className="grid size-10 place-items-center rounded-full bg-white text-black lg:size-12">
           <Mail />
         </div>
       </Button>

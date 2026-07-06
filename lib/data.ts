@@ -6,6 +6,12 @@ export interface Project {
   liveUrl: string
 }
 
+export interface Testimonial {
+  name: string
+  title: string
+  quote: string
+}
+
 export const projects: Array<Project> = [
   {
     imageUrl: "/lebron-highlights.jpeg",
@@ -47,5 +53,20 @@ export const projects: Array<Project> = [
       "A classified marketplace where students and locals buy and sell everyday items with built-in escrow for trust and better visibility for sellers.",
     year: 2023,
     liveUrl: "https://flickmart.app/",
+  },
+]
+
+export const testimonials: Array<Testimonial> = [
+  {
+    name: "Santa",
+    title: "CEO of intarakt",
+    quote:
+      "Didn't expect a fintech onboarding flow to feel this calm. That's a hard thing to pull off with all the compliance stuff we had to fit in.",
+  },
+  {
+    name: "Stanley Okongwu",
+    title: "CEO of Osora",
+    quote:
+      "He caught things I didn't even know were problems like why users kept dropping off at KYC. Fixed it before I even brought it up.",
   },
 ]
