@@ -29,7 +29,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <div className="flex justify-center">{children}</div>
+          <div className="flex flex-col items-center">{children}</div>
         </ThemeProvider>
       </body>
     </html>
