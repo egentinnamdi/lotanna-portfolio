@@ -13,9 +13,18 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col font-mono text-olive-200 lg:gap-10 lg:text-2xl">
-          <span>Instagram</span>
-          <span>Linkedin</span>
-          <span>X</span>
+          <a target="_blank" href="https://www.instagram.com/lotannamadueke">
+            Instagram
+          </a>
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/lotanna-madueke-3900b728a"
+          >
+            Linkedin
+          </a>
+          <a target="_blank" href="https://x.com/LMadueke28">
+            X
+          </a>
         </div>
 
         <div className="font-light lg:text-2xl">

@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { BouncingBox } from "../shared/BouncingBox"
 
 type Status = "idle" | "loading" | "success" | "error"
 
@@ -169,19 +170,7 @@ export default function ContactSection() {
         {/* Right: visual card */}
         <div className="contact-visual flex h-full justify-center md:justify-end">
           <div className="flex size-full items-start justify-start rounded-3xl bg-white p-8 shadow-sm ring-1 ring-neutral-100">
-            {/* <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500 to-violet-600 shadow-md"> */}
-            {/* Swap this for your logo/avatar */}
-            {/* <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="h-9 w-9 text-white"
-              >
-                <path
-                  d="M7 4L17 9V15L7 20V14L13 11.5L7 9V4Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div> */}
+            <BouncingBox />
           </div>
         </div>
       </div>
