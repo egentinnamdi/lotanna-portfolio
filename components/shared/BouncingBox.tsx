@@ -1,8 +1,18 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 import { cn } from "@/lib/utils"
+
+const DEFAULT_COLORS = [
+  "#f43f5e",
+  "#3b82f6",
+  "#eab308",
+  "#22c55e",
+  "#a855f7",
+  "#f97316",
+]
 
 interface BouncingBoxProps {
   width?: number
@@ -19,88 +29,92 @@ export function BouncingBox({
   height = 300,
   size = 40,
   speed = 220,
-  colors = ["#f43f5e", "#3b82f6", "#eab308", "#22c55e", "#a855f7", "#f97316"],
+  colors = DEFAULT_COLORS,
   shape = "circle",
   className,
 }: BouncingBoxProps) {
   const objRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const obj = objRef.current
-    if (!obj) return
+  // Live settings ref — updated every render, but read (not depended on) by the loop
+  const settings = useRef({ width, height, size, speed, colors })
+  settings.current = { width, height, size, speed, colors }
 
-    let x = Math.random() * (width - size)
-    let y = Math.random() * (height - size)
+  useGSAP(
+    () => {
+      const obj = objRef.current
+      if (!obj) return
 
-    const angle = Math.random() * Math.PI * 2
-    let vx = Math.cos(angle) * speed
-    let vy = Math.sin(angle) * speed
+      let x = Math.random() * (width - size)
+      let y = Math.random() * (height - size)
 
-    let colorIndex = Math.floor(Math.random() * colors.length)
+      const angle = Math.random() * Math.PI * 2
+      let vx = Math.cos(angle) * speed
+      let vy = Math.sin(angle) * speed
+      let colorIndex = Math.floor(Math.random() * colors.length)
 
-    function nextColor() {
-      let next = Math.floor(Math.random() * colors.length)
-      if (next === colorIndex) next = (next + 1) % colors.length
-      colorIndex = next
-      gsap.to(obj, {
-        backgroundColor: colors[colorIndex],
-        duration: 0.35,
-        ease: "power2.out",
-      })
-    }
-
-    gsap.set(obj, { x, y, backgroundColor: colors[colorIndex] })
-
-    let lastTime = performance.now()
-
-    function tick(time: number) {
-      const dt = Math.min((time - lastTime) / 1000, 0.05)
-      lastTime = time
-
-      x += vx * dt
-      y += vy * dt
-
-      let bounced = false
-      const jitter = () => (Math.random() - 0.5) * speed * 0.7
-
-      if (x <= 0) {
-        x = 0
-        vx = Math.abs(vx)
-        vy += jitter()
-        bounced = true
-      } else if (x >= width - size) {
-        x = width - size
-        vx = -Math.abs(vx)
-        vy += jitter()
-        bounced = true
+      function nextColor() {
+        let next = Math.floor(Math.random() * colors.length)
+        if (next === colorIndex) next = (next + 1) % colors.length
+        colorIndex = next
+        gsap.to(obj, {
+          backgroundColor: colors[colorIndex],
+          duration: 0.35,
+          ease: "power2.out",
+        })
       }
 
-      if (y <= 0) {
-        y = 0
-        vy = Math.abs(vy)
-        vx += jitter()
-        bounced = true
-      } else if (y >= height - size) {
-        y = height - size
-        vy = -Math.abs(vy)
-        vx += jitter()
-        bounced = true
+      gsap.set(obj, { x, y, backgroundColor: colors[colorIndex] })
+
+      let lastTime = performance.now()
+
+      function tick(time: number) {
+        const dt = Math.min((time - lastTime) / 1000, 0.05)
+        lastTime = time
+        x += vx * dt
+        y += vy * dt
+
+        let bounced = false
+        const jitter = () => (Math.random() - 0.5) * speed * 0.7
+
+        if (x <= 0) {
+          x = 0
+          vx = Math.abs(vx)
+          vy += jitter()
+          bounced = true
+        } else if (x >= width - size) {
+          x = width - size
+          vx = -Math.abs(vx)
+          vy += jitter()
+          bounced = true
+        }
+        if (y <= 0) {
+          y = 0
+          vy = Math.abs(vy)
+          vx += jitter()
+          bounced = true
+        } else if (y >= height - size) {
+          y = height - size
+          vy = -Math.abs(vy)
+          vx += jitter()
+          bounced = true
+        }
+
+        const mag = Math.sqrt(vx * vx + vy * vy) || 1
+        vx = (vx / mag) * speed
+        vy = (vy / mag) * speed
+
+        gsap.set(obj, { x, y })
+        if (bounced) nextColor()
       }
 
-      // keep overall speed constant so it never stalls or runs away
-      const mag = Math.sqrt(vx * vx + vy * vy) || 1
-      vx = (vx / mag) * speed
-      vy = (vy / mag) * speed
+      gsap.ticker.add(tick)
 
-      gsap.set(obj, { x, y })
-      if (bounced) nextColor()
-    }
-
-    gsap.ticker.add(tick)
-    return () => {
-      gsap.ticker.remove(tick)
-    }
-  }, [width, height, size, speed, colors])
+      return () => {
+        gsap.ticker.remove(tick) // must remove THIS exact function reference
+      }
+    },
+    { scope: objRef, dependencies: [] }
+  )
 
   return (
     <div

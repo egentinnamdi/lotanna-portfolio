@@ -6,13 +6,13 @@ export default function Footer() {
   return (
     <div className="flex h-[70vh] flex-col-reverse justify-center self-stretch bg-accent-foreground text-white lg:flex-col">
       <div className="flex flex-3 flex-col items-center justify-evenly lg:flex-row lg:p-0">
-        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:gap-10 lg:text-2xl">
+        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-2xl">
           <Link href="#projects">/projects</Link>
           <Link href="#about">/about</Link>
           <Link href="#testimonials">/testimonials</Link>
         </div>
 
-        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:gap-10 lg:text-2xl">
+        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-2xl">
           <a target="_blank" href="https://www.instagram.com/lotannamadueke">
             Instagram
           </a>

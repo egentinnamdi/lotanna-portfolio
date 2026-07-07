@@ -170,7 +170,7 @@ export default function ContactSection() {
         {/* Right: visual card */}
         <div className="contact-visual flex h-full justify-center md:justify-end">
           <div className="flex size-full items-start justify-start rounded-3xl bg-white p-8 shadow-sm ring-1 ring-neutral-100">
-            <BouncingBox />
+            <BouncingBox className="w-full max-w-md" />
           </div>
         </div>
       </div>

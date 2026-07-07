@@ -16,7 +16,7 @@ export default function HeroSection() {
       </h2>
 
       {!isMobile && (
-        <div className="hidden flex-1">
+        <div className="flex-1">
           <Image
             src="/hero-one-enhanced.png"
             alt="Playful hand-drawn illustration of a character lounging on a striped shape with a flower"
