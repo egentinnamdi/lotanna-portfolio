@@ -47,7 +47,7 @@ export default function AboutSection() {
           scrub: 3,
           pin: true,
           pinSpacing: true,
-          markers: true,
+          //   markers: true,
         },
       })
 

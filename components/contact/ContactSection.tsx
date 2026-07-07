@@ -78,7 +78,7 @@ export default function ContactSection() {
     <section
       ref={containerRef}
       id="contact"
-      className="flex justify-center self-stretch bg-olive-100 lg:mt-20"
+      className="mt-10 flex justify-center self-stretch bg-olive-100 lg:mt-20"
     >
       <div className="mx-auto grid w-11/12 grid-cols-1 gap-16 px-6 py-24 md:grid-cols-2 md:items-start lg:w-10/12">
         {/* Left: copy + form */}
