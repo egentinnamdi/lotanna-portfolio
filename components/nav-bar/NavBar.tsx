@@ -34,18 +34,18 @@ export default function NavBar() {
 
   return (
     <div className="fixed z-20 flex w-full justify-center bg-white shadow-sm">
-      <div className="flex h-[10vh] w-10/12 items-center py-12 lg:h-[10vh] lg:py-16">
+      <div className="flex h-[10vh] w-10/12 items-center py-12 lg:h-[10vh] lg:py-12">
         {/* Logo */}
         <DistortText
-          text="Lotanna Madueke"
-          className="flex-2 text-xl font-semibold lg:text-4xl"
+          text="Lotanna"
+          className="flex-2 text-xl font-semibold lg:text-3xl"
         />
 
         {/* Navigation links */}
         {isMobile ? (
           <a href={`#${activeSection}`}>/{activeSection}</a>
         ) : (
-          <div className="flex h-full flex-1 items-center justify-between font-mono text-xl font-bold text-gray-500">
+          <div className="flex h-full flex-1 items-center justify-between bg-orange-400 font-mono text-base font-bold text-gray-500">
             {links.map((link) => (
               <a
                 href={`#${link}`}

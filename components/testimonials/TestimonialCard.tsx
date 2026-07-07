@@ -38,7 +38,6 @@ export default function TestimonialCard({
         style={{
           transformStyle: "preserve-3d",
         }}
-        // className="flex min-h-[25vh] flex-col justify-between rounded-2xl border border-black/15 p-5 shadow-md perspective-[1000px] lg:min-h-[38vh] lg:p-10"
       >
         {/* Front */}
         <div
@@ -50,20 +49,20 @@ export default function TestimonialCard({
 
         {/* Back */}
         <div
-          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-black/15 bg-white p-5 shadow-md lg:p-10"
+          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-black/15 bg-white p-5 shadow-md lg:p-7"
           style={{
             backfaceVisibility: "hidden",
             transform: "rotateX(180deg)",
           }}
         >
-          <p className="text-sm lg:text-2xl">{testimonial.quote}</p>
+          <p className="text-sm lg:text-lg">{testimonial.quote}</p>
 
           <div>
-            <h3 className="text-sm font-medium lg:text-2xl">
+            <h3 className="text-sm font-medium lg:text-lg">
               {testimonial.name}
             </h3>
 
-            <span className="text-xs text-black/50 lg:text-lg">
+            <span className="text-xs text-black/50 lg:text-sm">
               {testimonial.title}
             </span>
           </div>
