@@ -146,7 +146,7 @@ export default function ContactSection() {
               />
             </div>
 
-            <div className="contact-field flex items-center gap-4">
+            <div className="contact-field flex flex-col items-center gap-4">
               <Button
                 type="submit"
                 disabled={status === "loading"}
