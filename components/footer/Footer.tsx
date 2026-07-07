@@ -4,15 +4,15 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <div className="flex min-h-[70vh] flex-col-reverse justify-center self-stretch bg-accent-foreground text-white lg:flex-col">
+    <div className="flex min-h-[70vh] flex-col-reverse justify-center self-stretch bg-accent-foreground text-white lg:h-screen lg:flex-col">
       <div className="flex flex-3 flex-col items-center justify-evenly lg:flex-row lg:pt-10">
-        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-lg">
+        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-base">
           <Link href="#projects">/projects</Link>
           <Link href="#about">/about</Link>
           <Link href="#testimonials">/testimonials</Link>
         </div>
 
-        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-lg">
+        <div className="flex w-full flex-col gap-2 px-5 font-mono text-olive-200 lg:w-fit lg:gap-10 lg:text-base">
           <a target="_blank" href="https://www.instagram.com/lotannamadueke">
             Instagram
           </a>
@@ -27,7 +27,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="text-center font-light lg:text-lg">
+        <div className="text-center font-light lg:text-base">
           <span>
             &copy; Lotanna & FlexCodes {new Date().getFullYear()}, All rights
             reserved.
@@ -38,7 +38,7 @@ export default function Footer() {
       <div className="bg flex flex-2 items-center justify-center lg:flex-3">
         <DistortText
           text="Lotanna"
-          className="text-center text-7xl font-semibold text-olive-200 lg:text-[200px]"
+          className="text-center text-7xl font-bold tracking-widest text-olive-200 lg:text-[270px]"
         />
       </div>
     </div>

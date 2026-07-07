@@ -86,7 +86,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={containerRef}
-      className="relative grid h-screen place-items-center self-stretch overflow-hidden bg-olive-50"
+      className="relative grid h-screen place-items-center self-stretch overflow-hidden bg-olive-50 lg:mt-10"
     >
       <h2 className="text-center text-6xl font-light lg:text-8xl">
         From concept
@@ -106,13 +106,13 @@ export default function AboutSection() {
 
       <Button
         onClick={() => router.push("#contact")}
-        className="absolute bottom-10 left-1/2 flex h-12 -translate-x-1/2 items-center justify-between rounded-full p-1.5 lg:h-16 lg:w-64"
+        className="absolute bottom-10 left-1/2 flex h-12 -translate-x-1/2 items-center justify-between rounded-full p-1 lg:h-14 lg:w-56"
       >
         <Avatar className="size-10 lg:size-12">
           <AvatarImage src="/profile.png" className="size-full object-cover" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <span className="text-sm lg:text-base">Book a chat</span>
+        <span className="text-sm lg:text-sm">Book a chat</span>
         <div className="grid size-10 place-items-center rounded-full bg-white text-black lg:size-12">
           <Mail />
         </div>

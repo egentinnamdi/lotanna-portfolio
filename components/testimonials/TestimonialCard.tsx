@@ -55,10 +55,10 @@ export default function TestimonialCard({
             transform: "rotateX(180deg)",
           }}
         >
-          <p className="text-sm lg:text-lg">{testimonial.quote}</p>
+          <p className="text-sm lg:text-base">{testimonial.quote}</p>
 
           <div>
-            <h3 className="text-sm font-medium lg:text-lg">
+            <h3 className="text-sm font-medium lg:text-base">
               {testimonial.name}
             </h3>
 

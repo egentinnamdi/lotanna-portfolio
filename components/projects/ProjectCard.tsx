@@ -19,7 +19,7 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
       <div className="flex items-end justify-between">
         <h2 className="text-2xl font-medium lg:text-xl">{project.title}</h2>
-        <span className="text-xl text-gray-400">{project.year}</span>
+        <span className="text-base text-gray-400">{project.year}</span>
       </div>
       <p className="text-lg leading-normal tracking-tight text-black/80 lg:text-base">
         {project.excerpt}

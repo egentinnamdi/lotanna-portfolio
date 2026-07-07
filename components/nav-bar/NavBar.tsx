@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import DistortText from "../shared/DistortionText"
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap"
 import { useScreenWidth } from "@/hooks/useScreenWidth"
+import Link from "next/link"
 
 const links = ["home", "projects", "about", "testimonials", "contact"]
 
@@ -45,15 +46,15 @@ export default function NavBar() {
         {isMobile ? (
           <a href={`#${activeSection}`}>/{activeSection}</a>
         ) : (
-          <div className="flex h-full flex-1 items-center justify-between bg-orange-400 font-mono text-base font-bold text-gray-500">
+          <div className="flex h-full flex-1 items-center justify-between bg-orange-400 font-mono text-base font-bold text-gray-500 lg:text-sm">
             {links.map((link) => (
-              <a
+              <Link
                 href={`#${link}`}
                 key={link}
                 className={activeSection === link ? "text-gray-900" : ""}
               >
                 /{link}
-              </a>
+              </Link>
             ))}
           </div>
         )}
