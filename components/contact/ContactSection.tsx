@@ -80,7 +80,7 @@ export default function ContactSection() {
       id="contact"
       className="mt-10 flex justify-center self-stretch bg-olive-100 lg:mt-20"
     >
-      <div className="mx-auto grid w-11/12 grid-cols-1 gap-16 px-6 py-24 md:grid-cols-2 md:items-start lg:w-10/12">
+      <div className="mx-auto flex w-11/12 flex-col-reverse gap-16 px-6 py-24 md:grid-cols-2 md:items-start lg:grid lg:w-10/12">
         {/* Left: copy + form */}
         <div>
           <span className="contact-badge inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm text-emerald-700">
@@ -169,9 +169,17 @@ export default function ContactSection() {
 
         {/* Right: visual card */}
         <div className="contact-visual flex h-full justify-center md:justify-end">
-          <div className="flex size-full items-start justify-start rounded-3xl bg-white p-8 shadow-sm ring-1 ring-neutral-100">
-            <BouncingBox className="w-full max-w-md" />
-          </div>
+          <BouncingBox
+            images={[
+              "/one.png",
+              "/two.png",
+              "/three.png",
+              "/four.png",
+              "/five.png",
+              "/six.png",
+            ]}
+            className="h-96 w-full rounded-3xl lg:h-full"
+          />
         </div>
       </div>
     </section>

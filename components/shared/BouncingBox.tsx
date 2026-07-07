@@ -1,140 +1,146 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
-const DEFAULT_COLORS = [
-  "#f43f5e",
-  "#3b82f6",
-  "#eab308",
-  "#22c55e",
-  "#a855f7",
-  "#f97316",
-]
-
 interface BouncingBoxProps {
-  width?: number
-  height?: number
-  size?: number
-  speed?: number
-  colors?: string[]
-  shape?: "circle" | "square"
+  images: string[]
+  width?: number | string
+  height?: number | string
+  objectSize?: number
+  speed?: number // pixels per second
   className?: string
+  rounded?: boolean
 }
 
 export function BouncingBox({
-  width = 400,
-  height = 300,
-  size = 40,
-  speed = 220,
-  colors = DEFAULT_COLORS,
-  shape = "circle",
+  images,
+  width = "100%",
+  height = 400,
+  objectSize = 80,
+  speed = 280,
   className,
+  rounded = true,
 }: BouncingBoxProps) {
+  const boxRef = useRef<HTMLDivElement>(null)
   const objRef = useRef<HTMLDivElement>(null)
+  const imgIdxRef = useRef(0)
+  const [imgIdx, setImgIdx] = useState(0)
 
-  // Live settings ref — updated every render, but read (not depended on) by the loop
-  const settings = useRef({ width, height, size, speed, colors })
-  settings.current = { width, height, size, speed, colors }
+  useEffect(() => {
+    const box = boxRef.current
+    const obj = objRef.current
+    if (!box || !obj || images.length === 0) return
 
-  useGSAP(
-    () => {
-      const obj = objRef.current
-      if (!obj) return
+    const ctx = gsap.context(() => {
+      const pickImage = () => {
+        if (images.length <= 1) return 0
+        let next = Math.floor(Math.random() * images.length)
+        if (next === imgIdxRef.current) next = (next + 1) % images.length
+        imgIdxRef.current = next
+        return next
+      }
 
-      let x = Math.random() * (width - size)
-      let y = Math.random() * (height - size)
+      let x = 0
+      let y = 0
 
-      const angle = Math.random() * Math.PI * 2
-      let vx = Math.cos(angle) * speed
-      let vy = Math.sin(angle) * speed
-      let colorIndex = Math.floor(Math.random() * colors.length)
+      let lastEdge = -1
+      const bounce = () => {
+        const rect = box.getBoundingClientRect()
+        const maxX = Math.max(0, rect.width - objectSize)
+        const maxY = Math.max(0, rect.height - objectSize)
 
-      function nextColor() {
-        let next = Math.floor(Math.random() * colors.length)
-        if (next === colorIndex) next = (next + 1) % colors.length
-        colorIndex = next
+        // Pick a random edge (0=left, 1=right, 2=top, 3=bottom) different from last
+        let edge = Math.floor(Math.random() * 4)
+        if (edge === lastEdge) edge = (edge + 1) % 4
+        lastEdge = edge
+
+        let targetX = 0
+        let targetY = 0
+        if (edge === 0) {
+          targetX = 0
+          targetY = Math.random() * maxY
+        } else if (edge === 1) {
+          targetX = maxX
+          targetY = Math.random() * maxY
+        } else if (edge === 2) {
+          targetX = Math.random() * maxX
+          targetY = 0
+        } else {
+          targetX = Math.random() * maxX
+          targetY = maxY
+        }
+
+        const dx = targetX - x
+        const dy = targetY - y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        const duration = Math.max(0.3, dist / speed)
+
         gsap.to(obj, {
-          backgroundColor: colors[colorIndex],
-          duration: 0.35,
-          ease: "power2.out",
+          x: targetX,
+          y: targetY,
+          duration,
+          ease: "none",
+          onComplete: () => {
+            x = targetX
+            y = targetY
+            const nextIdx = pickImage()
+            gsap
+              .timeline()
+              .to(obj, { scale: 0.7, duration: 0.12, ease: "power2.in" })
+              .add(() => setImgIdx(nextIdx))
+              .to(obj, { scale: 1, duration: 0.18, ease: "back.out(2)" })
+            bounce()
+          },
         })
       }
 
-      gsap.set(obj, { x, y, backgroundColor: colors[colorIndex] })
+      bounce()
+    }, box)
 
-      let lastTime = performance.now()
-
-      function tick(time: number) {
-        const dt = Math.min((time - lastTime) / 1000, 0.05)
-        lastTime = time
-        x += vx * dt
-        y += vy * dt
-
-        let bounced = false
-        const jitter = () => (Math.random() - 0.5) * speed * 0.7
-
-        if (x <= 0) {
-          x = 0
-          vx = Math.abs(vx)
-          vy += jitter()
-          bounced = true
-        } else if (x >= width - size) {
-          x = width - size
-          vx = -Math.abs(vx)
-          vy += jitter()
-          bounced = true
-        }
-        if (y <= 0) {
-          y = 0
-          vy = Math.abs(vy)
-          vx += jitter()
-          bounced = true
-        } else if (y >= height - size) {
-          y = height - size
-          vy = -Math.abs(vy)
-          vx += jitter()
-          bounced = true
-        }
-
-        const mag = Math.sqrt(vx * vx + vy * vy) || 1
-        vx = (vx / mag) * speed
-        vy = (vy / mag) * speed
-
-        gsap.set(obj, { x, y })
-        if (bounced) nextColor()
-      }
-
-      gsap.ticker.add(tick)
-
-      return () => {
-        gsap.ticker.remove(tick) // must remove THIS exact function reference
-      }
-    },
-    { scope: objRef, dependencies: [] }
-  )
+    return () => ctx.revert()
+  }, [images, objectSize, speed])
 
   return (
     <div
-      style={{ width, height }}
+      ref={boxRef}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-50",
+        "relative overflow-hidden rounded-lg border-2 border-border bg-card",
         className
       )}
     >
       <div
         ref={objRef}
+        className="absolute top-0 left-0"
         style={{
-          width: size,
-          height: size,
-          borderRadius: shape === "circle" ? "9999px" : "12px",
-          position: "absolute",
-          top: 0,
-          left: 0,
+          width: objectSize,
+          height: objectSize,
+          willChange: "transform",
         }}
-      />
+      >
+        {images[imgIdx] && (
+          <Image
+            src={images[imgIdx]}
+            alt={images[imgIdx]}
+            draggable={false}
+            width={500}
+            height={500}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: rounded ? "9999px" : "var(--radius-md)",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+              userSelect: "none",
+              pointerEvents: "none",
+            }}
+          />
+        )}
+      </div>
     </div>
   )
 }
+
+export default BouncingBox
