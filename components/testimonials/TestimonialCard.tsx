@@ -1,6 +1,7 @@
 "use client"
 import { Testimonial } from "@/lib/data"
 import { gsap, useGSAP } from "@/lib/gsap"
+import Image from "next/image"
 import React, { useRef } from "react"
 
 export default function TestimonialCard({
@@ -18,7 +19,7 @@ export default function TestimonialCard({
     })
 
     tl.current.to(cardRef.current, {
-      rotateX: 180,
+      rotateY: 180,
       //   z: 50,
       duration: 0.7,
       ease: "power3.inOut",
@@ -41,18 +42,28 @@ export default function TestimonialCard({
       >
         {/* Front */}
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-2xl border border-black/15 bg-gray-50"
+          className="absolute inset-0 flex items-center justify-center border border-black/15 bg-gray-50"
           style={{
             backfaceVisibility: "hidden",
           }}
-        />
+        >
+          <div className="size-2/4">
+            <Image
+              src={testimonial.logo}
+              alt={testimonial.name}
+              width={500}
+              height={500}
+              className="size-full object-contain"
+            />
+          </div>
+        </div>
 
         {/* Back */}
         <div
-          className="absolute inset-0 flex flex-col justify-between rounded-2xl border border-black/15 bg-white p-5 shadow-md lg:p-7"
+          className="absolute inset-0 flex flex-col justify-between rounded-md border border-black/15 bg-white p-5 shadow-md lg:p-7"
           style={{
             backfaceVisibility: "hidden",
-            transform: "rotateX(180deg)",
+            transform: "rotateY(180deg)",
           }}
         >
           <p className="text-sm lg:text-base">{testimonial.quote}</p>

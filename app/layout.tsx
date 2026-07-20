@@ -1,4 +1,10 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
+import {
+  Fredericka_the_Great,
+  Geist,
+  Geist_Mono,
+  Inter,
+  Lora,
+} from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -22,6 +28,14 @@ export const metadata: Metadata = {
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora" })
+
+const ftg = Fredericka_the_Great({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-ftg",
+})
+
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -36,12 +50,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
+      style={{
+        scrollBehavior: "smooth",
+      }}
 
       className={cn(
         "antialiased",
         fontMono.variable,
         "font-sans",
-        inter.variable
+        inter.variable,
+        lora.variable,
+        ftg.variable
       )}
     >
       <body className="scroll-smooth">

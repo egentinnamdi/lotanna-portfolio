@@ -88,12 +88,9 @@ export default function ContactSection() {
             Available
           </span>
 
-          <h2 className="mt-6 text-4xl leading-normal font-light tracking-tight text-neutral-900 md:text-4xl">
-            <span className="contact-heading-line block">
-              Always searching for new problems,
-            </span>
-            <span className="contact-heading-line block">
-              fun teams and great ideas.
+          <h2 className="mt-6 text-4xl leading-normal tracking-tight text-neutral-900 md:text-4xl">
+            <span className="contact-heading-line block font-medium">
+              Always searching for new problems, fun teams and great ideas.
             </span>
           </h2>
 
@@ -168,17 +165,16 @@ export default function ContactSection() {
         </div>
 
         {/* Right: visual card */}
-        <div className="contact-visual flex h-full justify-center md:justify-end">
+        <div className="contact-visual flex h-full justify-center md:justify-end lg:items-center">
           <BouncingBox
             images={[
-              "/one.png",
-              "/two.png",
-              "/three.png",
-              "/four.png",
-              "/five.png",
-              "/six.png",
+              "/seven.png",
+              "/eight.png",
+              "/nine.png",
+              "/ten.png",
+              "/eleven.png",
             ]}
-            className="h-96 w-full rounded-3xl lg:h-full"
+            className="h-96 w-full rounded-lg lg:h-3/4"
           />
         </div>
       </div>

@@ -11,11 +11,12 @@ function ThemeProvider({
     <NextThemesProvider
       attribute="class"
       defaultTheme="light"
-      enableSystem
+      enableSystem={false} //False to prevent system preference and always apply the one we set
       disableTransitionOnChange
       {...props}
     >
-      <ThemeHotkey />
+      {/* This was disabled to prevent theme change triggered by Key press, can be enabled any time */}
+      {/* <ThemeHotkey />   */}
       {children}
     </NextThemesProvider>
   )
